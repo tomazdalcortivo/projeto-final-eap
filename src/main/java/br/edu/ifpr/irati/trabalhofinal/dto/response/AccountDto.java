@@ -1,4 +1,4 @@
-package br.edu.ifpr.irati.trabalhofinal.dto;
+package br.edu.ifpr.irati.trabalhofinal.dto.response;
 
 import br.edu.ifpr.irati.trabalhofinal.entity.Account;
 

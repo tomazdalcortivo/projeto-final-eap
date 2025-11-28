@@ -1,8 +1,6 @@
 package br.edu.ifpr.irati.trabalhofinal.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,11 +23,8 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Email(message = "Digite um email valido")
-    @NotBlank(message = "email não pode ser vazio")
     private String email;
 
-    @NotBlank(message = "Senha não pode ser vazia")
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)

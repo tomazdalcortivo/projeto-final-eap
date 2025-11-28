@@ -21,11 +21,11 @@ public class ClientService {
 
     public Client update(Client client, Long id) {
         Client clientToUpdate = clientRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Cliente não encontrado para atualização"));
+                () -> new RuntimeException("Cliente não encontrado"));
 
         clientToUpdate.setName(client.getName());
-        clientToUpdate.setDescription(client.getDescription());
-        clientToUpdate.setCompleted(client.getCompleted());
+        clientToUpdate.setCpf(client.getCpf());
+        clientToUpdate.setPhone(client.getPhone());
 
         return this.clientRepository.save(clientToUpdate);
     }

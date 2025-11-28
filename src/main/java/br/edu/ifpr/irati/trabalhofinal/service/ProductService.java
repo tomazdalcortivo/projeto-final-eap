@@ -1,6 +1,8 @@
 package br.edu.ifpr.irati.trabalhofinal.service;
 
+import br.edu.ifpr.irati.trabalhofinal.entity.Client;
 import br.edu.ifpr.irati.trabalhofinal.entity.Product;
+import br.edu.ifpr.irati.trabalhofinal.repository.ClientRepository;
 import br.edu.ifpr.irati.trabalhofinal.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ClientRepository clientRepository;
 
     public Page<Product> findAll(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
@@ -21,23 +24,31 @@ public class ProductService {
 
     public Product update(Product product, Long id) {
         Product productToUpdate = this.productRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Produto não encontrado para atualização"));
+                () -> new RuntimeException("Produto não encontrado"));
 
         productToUpdate.setName(product.getName());
         productToUpdate.setDescription(product.getDescription());
-        productToUpdate.setCompleted(product.getCompleted());
+        productToUpdate.setPrice(product.getPrice());
 
         return this.productRepository.save(productToUpdate);
+    }
+
+    public Product save(Product product, Long clientId) {
+        Client client = clientRepository.findById(clientId).orElseThrow(
+                () -> new RuntimeException("Cliente não encontrado para associar ao produto"));
+
+        product.setClient(client);
+        return this.productRepository.save(product);
+    }
+
+    public Product save(Product product) {
+        return this.productRepository.save(product);
     }
 
     public void delete(Long id) {
         Product product = this.productRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Produto não encontrado"));
         this.productRepository.delete(product);
-    }
-
-    public Product save(Product product) {
-        return this.productRepository.save(product);
     }
 
     public Product findById(Long id) {

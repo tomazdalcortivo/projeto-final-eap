@@ -1,8 +1,10 @@
 package br.edu.ifpr.irati.trabalhofinal.controller;
 
-import br.edu.ifpr.irati.trabalhofinal.dto.ClientDto;
+import br.edu.ifpr.irati.trabalhofinal.dto.request.ClientRequestDto;
+import br.edu.ifpr.irati.trabalhofinal.dto.response.ClientResponseDto;
 import br.edu.ifpr.irati.trabalhofinal.entity.Client;
 import br.edu.ifpr.irati.trabalhofinal.service.ClientService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -17,28 +19,29 @@ public class ClientController {
     private final ClientService clientService;
 
     @GetMapping
-    public ResponseEntity<Page<Client>> getAll(
+    public ResponseEntity<Page<ClientResponseDto>> getAll(
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "5") int pageSize) {
 
-        Page<Client> clients = clientService.findAll(pageNo, pageSize);
+        Page<ClientResponseDto> clients = clientService.findAll(pageNo, pageSize)
+                .map(ClientResponseDto::fromEntity);
         return ResponseEntity.ok(clients);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Client> getOne(@PathVariable Long id) {
+    public ResponseEntity<ClientResponseDto> getOne(@PathVariable Long id) {
         Client client = this.clientService.findById(id);
-        return ResponseEntity.ok(client);
+        return ResponseEntity.ok(ClientResponseDto.fromEntity(client));
     }
 
     @PostMapping
-    public ResponseEntity<Client> save(@RequestBody ClientDto clientDto) {
+    public ResponseEntity<ClientResponseDto> save(@RequestBody @Valid ClientRequestDto clientDto) {
         Client clientSaved = this.clientService.save(clientDto.toEntity());
-        return ResponseEntity.status(HttpStatus.CREATED).body(clientSaved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ClientResponseDto.fromEntity(clientSaved));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody ClientDto clientDto, @PathVariable Long id) {
+    public ResponseEntity<Void> update(@RequestBody @Valid ClientRequestDto clientDto, @PathVariable Long id) {
         this.clientService.update(clientDto.toEntity(), id);
         return ResponseEntity.noContent().build();
     }
