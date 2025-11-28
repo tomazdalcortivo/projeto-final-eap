@@ -24,7 +24,7 @@ public class AccountController {
         return ResponseEntity.ok(accounts);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Account> getOne(@PathVariable Long id) {
         Account account = this.accountService.findById(id);
         return ResponseEntity.ok(account);
@@ -36,13 +36,13 @@ public class AccountController {
         return ResponseEntity.ok(accountSaved);
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Void> update(@RequestBody AccountDto accountDto, @PathVariable Long id) {
         this.accountService.update(accountDto.toEntity(), id);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         this.accountService.delete(id);
         return ResponseEntity.noContent().build();

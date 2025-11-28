@@ -20,9 +20,8 @@ public class ProductService {
     }
 
     public Product update(Product product, Long id) {
-        // Correção: Mensagem de erro e nome da variável ajustados
         Product productToUpdate = this.productRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Product not found"));
+                () -> new RuntimeException("Produto não encontrado para atualização"));
 
         productToUpdate.setName(product.getName());
         productToUpdate.setDescription(product.getDescription());
@@ -33,7 +32,7 @@ public class ProductService {
 
     public void delete(Long id) {
         Product product = this.productRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Product not found"));
+                () -> new RuntimeException("Produto não encontrado"));
         this.productRepository.delete(product);
     }
 
@@ -43,6 +42,6 @@ public class ProductService {
 
     public Product findById(Long id) {
         return this.productRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Product not found"));
+                () -> new RuntimeException("Produto não encontrado"));
     }
 }

@@ -25,27 +25,25 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Product> getOne(@PathVariable Long id) {
         Product product = this.productService.findById(id);
         return ResponseEntity.ok(product);
     }
 
     @PostMapping
-    // Alteração: Recebe DTO, converte para entidade
     public ResponseEntity<Product> save(@RequestBody ProductDto productDto) {
         Product productSaved = this.productService.save(productDto.toEntity());
         return ResponseEntity.status(HttpStatus.CREATED).body(productSaved);
     }
 
-    @PatchMapping("{id}")
-    // Alteração: Recebe DTO, converte para entidade para atualizar
-    public ResponseEntity<Product> update(@RequestBody ProductDto productDto, @PathVariable Long id) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> update(@RequestBody ProductDto productDto, @PathVariable Long id) {
         this.productService.update(productDto.toEntity(), id);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         this.productService.delete(id);
         return ResponseEntity.noContent().build();

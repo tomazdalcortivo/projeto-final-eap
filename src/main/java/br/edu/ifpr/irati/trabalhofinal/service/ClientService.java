@@ -21,7 +21,7 @@ public class ClientService {
 
     public Client update(Client client, Long id) {
         Client clientToUpdate = clientRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Client not found"));
+                () -> new RuntimeException("Cliente não encontrado para atualização"));
 
         clientToUpdate.setName(client.getName());
         clientToUpdate.setDescription(client.getDescription());
@@ -32,7 +32,7 @@ public class ClientService {
 
     public void delete(Long id) {
         Client client = this.clientRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Client not found"));
+                () -> new RuntimeException("Cliente não encontrado"));
         this.clientRepository.delete(client);
     }
 
@@ -42,6 +42,6 @@ public class ClientService {
 
     public Client findById(Long id) {
         return this.clientRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Client not found"));
+                () -> new RuntimeException("Cliente não encontrado"));
     }
 }
