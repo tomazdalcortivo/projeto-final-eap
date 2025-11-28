@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.io.Serializable;
+
+
 public record AccountRegisterDto(
 
         @NotBlank(message = "Email é obrigatório")
@@ -16,7 +19,7 @@ public record AccountRegisterDto(
         @Size(min = 6, message = "A senha deve ter no mínimo 6 caracteres")
         String password,
 
-        Client client){
+        Client client) implements Serializable {
 
         public Account toEntity() {
             return Account.builder()

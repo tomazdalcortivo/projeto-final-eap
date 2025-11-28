@@ -4,6 +4,8 @@ import br.edu.ifpr.irati.trabalhofinal.entity.Client;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.io.Serializable;
+
 public record ClientRequestDto(
         @NotBlank(message = "Nome é obrigatório")
         String name,
@@ -16,7 +18,7 @@ public record ClientRequestDto(
         String phone,
 
         @NotBlank(message = "Endereço é obrigatório")
-        String address) {
+        String address) implements Serializable {
 
     public Client toEntity() {
         return Client.builder()
