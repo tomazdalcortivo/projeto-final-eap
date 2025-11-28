@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 public record ProductRequestDto(
@@ -21,7 +22,7 @@ public record ProductRequestDto(
         BigDecimal price,
 
         @NotNull(message = "ID do cliente é obrigatório")
-        Long clientId) {
+        Long clientId) implements Serializable {
 
     public Product toEntity() {
         return Product.builder()

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html th:replace="~{layout :: layout(~{::content})}" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content">
+    <h2>Lista de Clientes</h2>
+    <a href="/web/clients/new" class="btn btn-primary mb-3">Novo Cliente</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="client : ${clients}">
+            <td th:text="${client.name}">Nome</td>
+            <td th:text="${client.cpf}">CPF</td>
+            <td th:text="${client.phone}">Telefone</td>
+            <td>
+                <a th:href="@{/web/clients/edit/{id}(id=${client.id})}" class="btn btn-sm btn-warning">Editar</a>
+                <a th:href="@{/web/clients/delete/{id}(id=${client.id})}" class="btn btn-sm btn-danger"
+                   onclick="return confirm('Tem a certeza que deseja excluir?')">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
