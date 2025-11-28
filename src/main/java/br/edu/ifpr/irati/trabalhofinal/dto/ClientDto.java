@@ -7,11 +7,11 @@ public record ClientDto(
         String description,
         Boolean completed) {
 
-//    public Client toEntity() {
-//        return Client.builder()
-//                .name(name)
-//                .description(description)
-//                .completed(completed)
-//                .build();
-//    }
+    public Client toEntity() {
+        return Client.builder()
+                .name(name)
+                .description(description)
+                .completed(completed)
+                .build();
+    }
 }

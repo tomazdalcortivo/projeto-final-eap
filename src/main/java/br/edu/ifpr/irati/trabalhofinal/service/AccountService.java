@@ -19,31 +19,29 @@ public class AccountService {
         return this.accountRepository.findAll(pageable);
     }
 
-    public Account update(Account user, Long id) {
-        Account user1 = this.accountRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("User a will be updated not found"));
+    public Account update(Account account, Long id) {
+        Account accountToUpdate = this.accountRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Account not found"));
 
-//        user1.setName(user.getName());
-//        user1.setDescription(user.getDescription());
-//        user1.setCompleted(user.getCompleted());
+        // Atualiza email e senha baseados no objeto recebido
+        accountToUpdate.setEmail(account.getEmail());
+        accountToUpdate.setPassword(account.getPassword());
 
-        this.accountRepository.save(user1);
-        return user1;
+        return this.accountRepository.save(accountToUpdate);
     }
 
     public void delete(Long id) {
-        Account user = this.accountRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("User not found"));
-        this.accountRepository.delete(user);
+        Account account = this.accountRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Account not found"));
+        this.accountRepository.delete(account);
     }
 
-    public Account save(Account user) {
-        return this.accountRepository.save(user);
+    public Account save(Account account) {
+        return this.accountRepository.save(account);
     }
 
     public Account findById(Long id) {
         return this.accountRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("User not found"));
+                () -> new RuntimeException("Account not found"));
     }
-
 }

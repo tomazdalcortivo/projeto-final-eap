@@ -1,5 +1,6 @@
 package br.edu.ifpr.irati.trabalhofinal.controller;
 
+import br.edu.ifpr.irati.trabalhofinal.dto.AccountDto;
 import br.edu.ifpr.irati.trabalhofinal.entity.Account;
 import br.edu.ifpr.irati.trabalhofinal.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -19,25 +20,25 @@ public class AccountController {
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "5") int pageSize) {
 
-        Page<Account> user = accountService.findAll(pageNo, pageSize);
-        return ResponseEntity.ok(user);
+        Page<Account> accounts = accountService.findAll(pageNo, pageSize);
+        return ResponseEntity.ok(accounts);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Account> getOne(@PathVariable Long id) {
-        Account user = this.accountService.findById(id);
-        return ResponseEntity.ok(user);
+        Account account = this.accountService.findById(id);
+        return ResponseEntity.ok(account);
     }
 
     @PostMapping
-    public ResponseEntity<Account> save(@RequestBody Account account) {
-        Account user1 = this.accountService.save(account);
-        return ResponseEntity.ok(user1);
+    public ResponseEntity<Account> save(@RequestBody AccountDto accountDto) {
+        Account accountSaved = this.accountService.save(accountDto.toEntity());
+        return ResponseEntity.ok(accountSaved);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<Account> update(@RequestBody Account user, @PathVariable Long id) {
-        this.accountService.update(user, id);
+    public ResponseEntity<Void> update(@RequestBody AccountDto accountDto, @PathVariable Long id) {
+        this.accountService.update(accountDto.toEntity(), id);
         return ResponseEntity.noContent().build();
     }
 

@@ -20,20 +20,19 @@ public class ClientService {
     }
 
     public Client update(Client client, Long id) {
-        Client g = clientRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Guest a will be updated not found"));
+        Client clientToUpdate = clientRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Client not found"));
 
-        g.setName(client.getName());
-        g.setDescription(client.getDescription());
-        g.setCompleted(client.getCompleted());
+        clientToUpdate.setName(client.getName());
+        clientToUpdate.setDescription(client.getDescription());
+        clientToUpdate.setCompleted(client.getCompleted());
 
-        this.clientRepository.save(g);
-        return g;
+        return this.clientRepository.save(clientToUpdate);
     }
 
     public void delete(Long id) {
         Client client = this.clientRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Guest not found"));
+                () -> new RuntimeException("Client not found"));
         this.clientRepository.delete(client);
     }
 
@@ -43,7 +42,6 @@ public class ClientService {
 
     public Client findById(Long id) {
         return this.clientRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Guest not found"));
+                () -> new RuntimeException("Client not found"));
     }
-
 }

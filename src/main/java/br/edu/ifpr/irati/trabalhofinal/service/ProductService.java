@@ -20,21 +20,21 @@ public class ProductService {
     }
 
     public Product update(Product product, Long id) {
-        Product teacher = this.productRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("teacher a will be updated not found"));
+        // Correção: Mensagem de erro e nome da variável ajustados
+        Product productToUpdate = this.productRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Product not found"));
 
-        teacher.setName(product.getName());
-        teacher.setDescription(product.getDescription());
-        teacher.setCompleted(product.getCompleted());
+        productToUpdate.setName(product.getName());
+        productToUpdate.setDescription(product.getDescription());
+        productToUpdate.setCompleted(product.getCompleted());
 
-        this.productRepository.save(teacher);
-        return teacher;
+        return this.productRepository.save(productToUpdate);
     }
 
     public void delete(Long id) {
-        Product teacher = this.productRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Teacher not found"));
-        this.productRepository.delete(teacher);
+        Product product = this.productRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Product not found"));
+        this.productRepository.delete(product);
     }
 
     public Product save(Product product) {
@@ -43,7 +43,6 @@ public class ProductService {
 
     public Product findById(Long id) {
         return this.productRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Teacher not found"));
+                () -> new RuntimeException("Product not found"));
     }
-
 }
