@@ -41,34 +41,67 @@ function Register() {
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 setErrors(error.response.data);
+            } else {
+                alert("Erro ao cadastrar. Verifique os dados.");
             }
         }
     };
 
     return (
-        <div className="container">
+        <div className="auth-container">
             <h2 className="title">Criar Conta</h2>
 
             <form onSubmit={handleSubmit}>
 
-                <input name="email" placeholder="Email" onChange={handleChange}/>
+                <input
+                    name="email"
+                    placeholder="Email"
+                    onChange={handleChange}
+                    required
+                />
                 {errors.email && <p className="error-text">{errors.email}</p>}
 
-                <input name="password" type="password" placeholder="Senha" onChange={handleChange}/>
+                <input
+                    name="password"
+                    type="password"
+                    placeholder="Senha"
+                    onChange={handleChange}
+                    required
+                />
                 {errors.password && <p className="error-text">{errors.password}</p>}
 
-                <h4>Dados Pessoais</h4>
+                <h4 className="subtitle">Dados Pessoais</h4>
 
-                <input name="name" placeholder="Nome Completo" onChange={handleChange}/>
+                <input
+                    name="name"
+                    placeholder="Nome Completo"
+                    onChange={handleChange}
+                    required
+                />
                 {errors.name && <p className="error-text">{errors.name}</p>}
 
-                <input name="cpf" placeholder="CPF" onChange={handleChange}/>
+                <input
+                    name="cpf"
+                    placeholder="CPF"
+                    onChange={handleChange}
+                    required
+                />
                 {errors.cpf && <p className="error-text">{errors.cpf}</p>}
 
-                <input name="phone" placeholder="Telefone" onChange={handleChange}/>
+                <input
+                    name="phone"
+                    placeholder="Telefone"
+                    onChange={handleChange}
+                    required
+                />
                 {errors.phone && <p className="error-text">{errors.phone}</p>}
 
-                <input name="address" placeholder="Endereço" onChange={handleChange}/>
+                <input
+                    name="address"
+                    placeholder="Endereço"
+                    onChange={handleChange}
+                    required
+                />
                 {errors.address && <p className="error-text">{errors.address}</p>}
 
                 <button type="submit">Cadastrar</button>

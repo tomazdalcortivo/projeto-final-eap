@@ -1,10 +1,7 @@
 package br.edu.ifpr.irati.trabalhofinal.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -12,23 +9,20 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_product")
-public class Product {
+@Table(name = "tb_cart_item")
+public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
-    private String description;
-
-    private BigDecimal price;
-
-    private Integer stock;
-
     @ManyToOne
     @JoinColumn(name = "client_id")
-    @JsonIgnore
     private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    private Integer quantity;
 }

@@ -19,7 +19,7 @@ function Login() {
     };
 
     return (
-        <div className="container">
+        <div className="auth-container">
             <h2 className="title">Login</h2>
 
             <form onSubmit={handleLogin}>
@@ -28,6 +28,7 @@ function Login() {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                 />
 
                 <input
@@ -35,12 +36,13 @@ function Login() {
                     placeholder="Senha"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
 
                 <button type="submit">Entrar</button>
             </form>
 
-            <p style={{marginTop: "15px", textAlign: "center"}}>
+            <p className="auth-footer">
                 Não tem conta? <Link className="link" to="/register">Cadastre-se</Link>
             </p>
         </div>

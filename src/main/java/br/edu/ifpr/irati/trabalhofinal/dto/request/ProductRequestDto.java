@@ -1,10 +1,7 @@
 package br.edu.ifpr.irati.trabalhofinal.dto.request;
 
 import br.edu.ifpr.irati.trabalhofinal.entity.Product;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -21,6 +18,10 @@ public record ProductRequestDto(
         @Positive(message = "O preço deve ser maior que zero")
         BigDecimal price,
 
+        @NotNull(message = "Estoque é obrigatório")
+        @PositiveOrZero(message = "Estoque deve não deve ser negativo")
+        Integer stock,
+
         @NotNull(message = "ID do cliente é obrigatório")
         Long clientId) implements Serializable {
 
@@ -29,6 +30,7 @@ public record ProductRequestDto(
                 .name(name)
                 .description(description)
                 .price(price)
+                .stock(stock)
                 .build();
     }
 }
