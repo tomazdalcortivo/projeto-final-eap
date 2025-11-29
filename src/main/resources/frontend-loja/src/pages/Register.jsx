@@ -40,6 +40,7 @@ function Register() {
             navigate('/');
         } catch (error) {
             if (error.response && error.response.status === 400) {
+                // O backend retorna chaves como "client.cpf", "client.name", etc.
                 setErrors(error.response.data);
             } else {
                 alert("Erro ao cadastrar. Verifique os dados.");
@@ -59,6 +60,7 @@ function Register() {
                     onChange={handleChange}
                     required
                 />
+                {/* Email fica na raiz, então a chave continua 'email' */}
                 {errors.email && <p className="error-text">{errors.email}</p>}
 
                 <input
@@ -78,7 +80,8 @@ function Register() {
                     onChange={handleChange}
                     required
                 />
-                {errors.name && <p className="error-text">{errors.name}</p>}
+                {/* Ajustado para ler 'client.name' */}
+                {errors['client.name'] && <p className="error-text">{errors['client.name']}</p>}
 
                 <input
                     name="cpf"
@@ -86,7 +89,8 @@ function Register() {
                     onChange={handleChange}
                     required
                 />
-                {errors.cpf && <p className="error-text">{errors.cpf}</p>}
+                {/* Ajustado para ler 'client.cpf' */}
+                {errors['client.cpf'] && <p className="error-text">{errors['client.cpf']}</p>}
 
                 <input
                     name="phone"
@@ -94,7 +98,8 @@ function Register() {
                     onChange={handleChange}
                     required
                 />
-                {errors.phone && <p className="error-text">{errors.phone}</p>}
+                {/* Ajustado para ler 'client.phone' */}
+                {errors['client.phone'] && <p className="error-text">{errors['client.phone']}</p>}
 
                 <input
                     name="address"
@@ -102,7 +107,8 @@ function Register() {
                     onChange={handleChange}
                     required
                 />
-                {errors.address && <p className="error-text">{errors.address}</p>}
+                {/* Ajustado para ler 'client.address' */}
+                {errors['client.address'] && <p className="error-text">{errors['client.address']}</p>}
 
                 <button type="submit">Cadastrar</button>
             </form>
