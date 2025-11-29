@@ -1,7 +1,8 @@
 :root {
-    --primary-color: #2563eb;
-    --primary-hover: #1d4ed8;
-    --background-color: #f3f4f6;
+    /* Paleta Roxa */
+    --primary-color: #7c3aed; /* Violet 600 */
+    --primary-hover: #6d28d9; /* Violet 700 */
+    --background-color: #f5f3ff; /* Fundo levemente roxo/cinza */
     --card-background: #ffffff;
     --text-color: #1f2937;
     --text-light: #6b7280;
@@ -17,6 +18,58 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     color: var(--text-color);
     -webkit-font-smoothing: antialiased;
+}
+
+/* --- Navbar (Barra Home) --- */
+.navbar {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-greeting {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* Botões da Navbar (Transparentes/Brancos) */
+.btn-nav {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid transparent;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    margin: 0;
+    transition: all 0.2s;
+}
+
+.btn-nav:hover {
+    background-color: white;
+    color: var(--primary-color);
 }
 
 /* Layout Centralizado (Login/Register) */
@@ -60,13 +113,13 @@ input {
     border-radius: var(--border-radius);
     font-size: 1rem;
     transition: border-color 0.2s, box-shadow 0.2s;
-    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+    box-sizing: border-box;
 }
 
 input:focus {
     border-color: var(--primary-color);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2); /* Roxo transparente */
 }
 
 button {
@@ -85,6 +138,11 @@ button {
 
 button:hover {
     background-color: var(--primary-hover);
+}
+
+button:disabled {
+    background-color: #a78bfa;
+    cursor: not-allowed;
 }
 
 /* Links e Textos Auxiliares */
@@ -115,30 +173,8 @@ button:hover {
 
 .dashboard-container {
     max-width: 1200px;
-    margin: 40px auto;
+    margin: 0 auto;
     padding: 0 20px;
-}
-
-.dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.btn-logout {
-    width: auto;
-    background-color: transparent;
-    color: var(--text-light);
-    border: 1px solid #d1d5db;
-    margin-top: 0;
-}
-
-.btn-logout:hover {
-    background-color: #e5e7eb;
-    color: var(--text-color);
 }
 
 .dashboard-content {
@@ -156,12 +192,14 @@ button:hover {
     box-shadow: var(--shadow);
     position: sticky;
     top: 20px;
+    border-top: 4px solid var(--primary-color); /* Detalhe roxo */
 }
 
 .product-form-card h3 {
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 1.25rem;
+    color: var(--text-color);
 }
 
 /* Grid de Lista de Produtos */
@@ -184,6 +222,7 @@ button:hover {
 
 .product-card:hover {
     transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .product-card strong {
@@ -207,14 +246,6 @@ button:hover {
     margin-bottom: 8px;
 }
 
-.product-seller {
-    font-size: 0.8rem;
-    color: #9ca3af;
-    border-top: 1px solid #f3f4f6;
-    padding-top: 12px;
-    margin-top: auto;
-}
-
 /* Responsividade */
 @media (max-width: 768px) {
     .dashboard-content {
@@ -224,5 +255,10 @@ button:hover {
     .product-form-card {
         position: static;
         margin-bottom: 30px;
+    }
+
+    .navbar-container {
+        flex-direction: column;
+        gap: 15px;
     }
 }
