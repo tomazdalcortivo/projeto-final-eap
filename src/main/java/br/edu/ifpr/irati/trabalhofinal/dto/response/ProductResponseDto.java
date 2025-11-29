@@ -8,6 +8,7 @@ public record ProductResponseDto(
         String name,
         String description,
         BigDecimal price,
+        Integer stock,
         String clientName) {
 
     public static ProductResponseDto fromEntity(Product product) {
@@ -16,6 +17,7 @@ public record ProductResponseDto(
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
+                product.getStock(),
                 product.getClient() != null ? product.getClient().getName() : "Sem Cliente"
         );
     }

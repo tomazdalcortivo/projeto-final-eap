@@ -40,36 +40,75 @@ function Register() {
             navigate('/');
         } catch (error) {
             if (error.response && error.response.status === 400) {
+                // O backend retorna chaves como "client.cpf", "client.name", etc.
                 setErrors(error.response.data);
+            } else {
+                alert("Erro ao cadastrar. Verifique os dados.");
             }
         }
     };
 
     return (
-        <div className="container">
+        <div className="auth-container">
             <h2 className="title">Criar Conta</h2>
 
             <form onSubmit={handleSubmit}>
 
-                <input name="email" placeholder="Email" onChange={handleChange}/>
+                <input
+                    name="email"
+                    placeholder="Email"
+                    onChange={handleChange}
+                    required
+                />
+                {/* Email fica na raiz, então a chave continua 'email' */}
                 {errors.email && <p className="error-text">{errors.email}</p>}
 
-                <input name="password" type="password" placeholder="Senha" onChange={handleChange}/>
+                <input
+                    name="password"
+                    type="password"
+                    placeholder="Senha"
+                    onChange={handleChange}
+                    required
+                />
                 {errors.password && <p className="error-text">{errors.password}</p>}
 
-                <h4>Dados Pessoais</h4>
+                <h4 className="subtitle">Dados Pessoais</h4>
 
-                <input name="name" placeholder="Nome Completo" onChange={handleChange}/>
-                {errors.name && <p className="error-text">{errors.name}</p>}
+                <input
+                    name="name"
+                    placeholder="Nome Completo"
+                    onChange={handleChange}
+                    required
+                />
+                {/* Ajustado para ler 'client.name' */}
+                {errors['client.name'] && <p className="error-text">{errors['client.name']}</p>}
 
-                <input name="cpf" placeholder="CPF" onChange={handleChange}/>
-                {errors.cpf && <p className="error-text">{errors.cpf}</p>}
+                <input
+                    name="cpf"
+                    placeholder="CPF"
+                    onChange={handleChange}
+                    required
+                />
+                {/* Ajustado para ler 'client.cpf' */}
+                {errors['client.cpf'] && <p className="error-text">{errors['client.cpf']}</p>}
 
-                <input name="phone" placeholder="Telefone" onChange={handleChange}/>
-                {errors.phone && <p className="error-text">{errors.phone}</p>}
+                <input
+                    name="phone"
+                    placeholder="Telefone"
+                    onChange={handleChange}
+                    required
+                />
+                {/* Ajustado para ler 'client.phone' */}
+                {errors['client.phone'] && <p className="error-text">{errors['client.phone']}</p>}
 
-                <input name="address" placeholder="Endereço" onChange={handleChange}/>
-                {errors.address && <p className="error-text">{errors.address}</p>}
+                <input
+                    name="address"
+                    placeholder="Endereço"
+                    onChange={handleChange}
+                    required
+                />
+                {/* Ajustado para ler 'client.address' */}
+                {errors['client.address'] && <p className="error-text">{errors['client.address']}</p>}
 
                 <button type="submit">Cadastrar</button>
             </form>

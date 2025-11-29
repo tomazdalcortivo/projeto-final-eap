@@ -29,6 +29,7 @@ public class ProductService {
         productToUpdate.setName(product.getName());
         productToUpdate.setDescription(product.getDescription());
         productToUpdate.setPrice(product.getPrice());
+        productToUpdate.setStock(product.getStock());
 
         return this.productRepository.save(productToUpdate);
     }
