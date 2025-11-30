@@ -1,5 +1,6 @@
 package br.edu.ifpr.irati.trabalhofinal.controller;
 
+import br.edu.ifpr.irati.trabalhofinal.controller.docs.AccountControllerDocs;
 import br.edu.ifpr.irati.trabalhofinal.dto.request.AccountRequestDto;
 import br.edu.ifpr.irati.trabalhofinal.dto.response.AccountLoginDto;
 import br.edu.ifpr.irati.trabalhofinal.dto.response.ClientResponseDto;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/account")
-public class AccountController {
+public class AccountController implements AccountControllerDocs {
 
     private final AccountRepository accountRepository;
 
@@ -27,6 +28,7 @@ public class AccountController {
 
     private final TokenService tokenService;
 
+    @Override
     @PostMapping("/register")
     public ResponseEntity registrar(@RequestBody @Valid AccountRequestDto data) {
 
@@ -43,6 +45,7 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
+    @Override
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid AccountLoginDto data) { // Retorno alterado para LoginResponseDto
         UsernamePasswordAuthenticationToken userPassword =
