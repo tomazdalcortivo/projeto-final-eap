@@ -28,9 +28,8 @@ public class AccountController {
 
     private final TokenService tokenService;
 
-    @PostMapping("/registrar")
+    @PostMapping("/register")
     public ResponseEntity registrar(@RequestBody @Valid AccountRequestDto data) {
-        if (this.accountRepository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
 

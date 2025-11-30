@@ -18,17 +18,16 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String generateToken(Account conta) {
+    public String generateToken(Account account) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            String token = JWT.create()
-                    .withIssuer("trabalhofinal")
-                    .withSubject(conta.getEmail())
+            return JWT.create()
+                    .withIssuer("loja-api")
+                    .withSubject(account.getEmail())
                     .withExpiresAt(getExpiration())
                     .sign(algorithm);
-            return token;
         } catch (JWTCreationException exception) {
-            throw new RuntimeException("JWT generation failed", exception);
+            throw new RuntimeException("Erro ao gerar token JWT", exception);
         }
     }
 
@@ -36,7 +35,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
-                    .withIssuer("trabalhofinal")
+                    .withIssuer("loja-api")
                     .build()
                     .verify(token)
                     .getSubject();
