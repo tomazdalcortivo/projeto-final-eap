@@ -2,10 +2,11 @@ package br.edu.ifpr.irati.trabalhofinal.controller;
 
 import br.edu.ifpr.irati.trabalhofinal.dto.request.AccountRequestDto;
 import br.edu.ifpr.irati.trabalhofinal.dto.response.AccountLoginDto;
+import br.edu.ifpr.irati.trabalhofinal.dto.response.ClientResponseDto;
+import br.edu.ifpr.irati.trabalhofinal.dto.response.LoginResponseDto;
 import br.edu.ifpr.irati.trabalhofinal.entity.Account;
 import br.edu.ifpr.irati.trabalhofinal.infra.security.TokenService;
 import br.edu.ifpr.irati.trabalhofinal.repository.AccountRepository;
-import br.edu.ifpr.irati.trabalhofinal.service.AccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/account")
 public class AccountController {
-
-    private final AccountService accountService;
 
     private final AccountRepository accountRepository;
 
@@ -45,11 +44,18 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AccountLoginDto data) {
-        UsernamePasswordAuthenticationToken userPassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
+    public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid AccountLoginDto data) { // Retorno alterado para LoginResponseDto
+        UsernamePasswordAuthenticationToken userPassword =
+                new UsernamePasswordAuthenticationToken(data.email(), data.password());
+
         Authentication auth = this.authenticationManager.authenticate(userPassword);
 
-        String token = tokenService.generateToken((Account) auth.getPrincipal());
-        return ResponseEntity.ok(token);
+        Account account = (Account) auth.getPrincipal();
+        String token = tokenService.generateToken(account);
+
+        ClientResponseDto clientDto = ClientResponseDto.fromEntity(account.getClient());
+
+        // Retorna o objeto completo que o React espera
+        return ResponseEntity.ok(new LoginResponseDto(token, clientDto));
     }
 }
