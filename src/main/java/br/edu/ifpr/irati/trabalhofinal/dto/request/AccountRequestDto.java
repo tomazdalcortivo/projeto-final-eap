@@ -1,7 +1,6 @@
 package br.edu.ifpr.irati.trabalhofinal.dto.request;
 
 import br.edu.ifpr.irati.trabalhofinal.entity.Account;
-import br.edu.ifpr.irati.trabalhofinal.entity.Client;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +10,7 @@ import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 
 
-public record AccountRegisterDto(
+public record AccountRequestDto(
 
         @NotBlank(message = "Email é obrigatório")
         @Email(message = "Formato de email inválido")

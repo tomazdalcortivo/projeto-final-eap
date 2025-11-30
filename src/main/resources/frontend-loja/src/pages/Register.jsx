@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import api from '../services/api';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom'; // Importei Link aqui
 
 function Register() {
     const navigate = useNavigate();
@@ -37,13 +37,20 @@ function Register() {
 
         try {
             await api.post('/account/register', payload);
+            alert("Cadastro realizado com sucesso!"); // Feedback visual
             navigate('/');
         } catch (error) {
-            if (error.response && error.response.status === 400) {
-                // O backend retorna chaves como "client.cpf", "client.name", etc.
-                setErrors(error.response.data);
+            console.error("Erro no registro:", error); // Log para debug no console
+            if (error.response) {
+                if (error.response.status === 400) {
+                    // Se for erro de validação (campos inválidos)
+                    setErrors(error.response.data);
+                } else {
+                    // Outros erros (500, 403, etc)
+                    alert(`Erro ao cadastrar: ${error.response.data?.message || 'Tente novamente.'}`);
+                }
             } else {
-                alert("Erro ao cadastrar. Verifique os dados.");
+                alert("Erro de conexão com o servidor.");
             }
         }
     };
@@ -60,7 +67,6 @@ function Register() {
                     onChange={handleChange}
                     required
                 />
-                {/* Email fica na raiz, então a chave continua 'email' */}
                 {errors.email && <p className="error-text">{errors.email}</p>}
 
                 <input
@@ -80,7 +86,6 @@ function Register() {
                     onChange={handleChange}
                     required
                 />
-                {/* Ajustado para ler 'client.name' */}
                 {errors['client.name'] && <p className="error-text">{errors['client.name']}</p>}
 
                 <input
@@ -89,7 +94,6 @@ function Register() {
                     onChange={handleChange}
                     required
                 />
-                {/* Ajustado para ler 'client.cpf' */}
                 {errors['client.cpf'] && <p className="error-text">{errors['client.cpf']}</p>}
 
                 <input
@@ -98,7 +102,6 @@ function Register() {
                     onChange={handleChange}
                     required
                 />
-                {/* Ajustado para ler 'client.phone' */}
                 {errors['client.phone'] && <p className="error-text">{errors['client.phone']}</p>}
 
                 <input
@@ -107,11 +110,14 @@ function Register() {
                     onChange={handleChange}
                     required
                 />
-                {/* Ajustado para ler 'client.address' */}
                 {errors['client.address'] && <p className="error-text">{errors['client.address']}</p>}
 
                 <button type="submit">Cadastrar</button>
             </form>
+
+            <p className="auth-footer">
+                Já tem uma conta? <Link className="link" to="/">Entrar</Link>
+            </p>
         </div>
     );
 }
